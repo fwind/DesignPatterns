@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>simple factory</title>
+</head>
+<body>
+
+</body>
+
+<script type="text/javascript">
+
+	function Operation(numA,numB){
+		var _numA = numA;
+		var _numB = numB;
+		this.getNumA = function(){
+			return _numA;
+		}
+		this.getNumB = function(){
+			return _numB;
+		}
+	}
+	Operation.prototype.getResult = function(){
+		var result = 0;
+		return result;
+	}
+	// 加法
+	function OperationAdd(numA,numB){
+		Operation.call(this,numA,numB);
+	}
+
+	OperationAdd.prototype = new Operation();
+
+	OperationAdd.prototype.getResult = function(){
+		var result = 0;
+		result = this.getNumA() + this.getNumB();
+		return result;
+	}
+	// 减法
+	function OperationSub(numA,numB){
+		Operation.call(this,numA,numB);
+	}
+
+	OperationSub.prototype = new Operation();
+
+	OperationSub.prototype.getResult = function(){
+		var result = 0;
+		result = this.getNumA() - this.getNumB();
+		return result;
+	}
+	// 乘法
+	function OperationMul(numA,numB){
+		Operation.call(this,numA,numB);
+	}
+
+	OperationMul.prototype = new Operation();
+
+	OperationMul.prototype.getResult = function(){
+		var result = 0;
+		result = this.getNumA() * this.getNumB();
+		return result;
+	}
+	// 除法
+	function OperationDiv(numA,numB){
+		Operation.call(this,numA,numB);
+	}
+
+	OperationDiv.prototype = new Operation();
+
+	OperationDiv.prototype.getResult = function(){
+		var result = 0;
+		result = this.getNumA() / this.getNumB();
+		return result;
+	}
+
+	function OperationFactory(numA,operate,numB){
+		var result = null;
+		switch(operate){
+			case '+':
+				result = new OperationAdd(numA,numB).getResult();
+				break;
+			case '-':
+			 	result = new OperationSub(numA,numB).getResult();
+			 	break;
+		 	case '*':
+			 	result = new OperationMul(numA,numB).getResult();
+			 	break;
+		 	case '/':
+			 	result = new OperationDiv(numA,numB).getResult();
+			 	break;
+		}
+		return result;
+	}
+	alert(OperationFactory(1,'+',2));
+	alert(OperationFactory(1,'/',2));
+
+</script>
+</html>
